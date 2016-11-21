@@ -1,0 +1,216 @@
+$color1: rgba(167, 167, 167, 1);
+$color2: rgba(68, 68, 68, 1);
+$color3: rgba(93, 217, 193, 1);
+$color4: rgba(75, 198, 185, 1);
+$color5: rgba(29, 52, 97, 1);
+/*@import "materialize/components/_color.scss";*/
+$primary-color: $color4 !default;
+$secondary-color: $color5 !default;
+@import "materialize";
+/*####################################*/
+body {
+    background: lighten($color3, 30%);
+}
+
+nav {
+    height: 4em;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.video {
+    margin: 0 auto;
+    width: 98vw;
+    height: 30vh;
+    overflow: hidden;
+    border-radius: 3%;
+}
+
+.video video {
+    position: relative;
+    bottom: 500px;
+    right: 0;
+    border-radius: 3%;
+}
+
+.side-by-side {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.endorsements {
+    width: 100vw;
+    height: 20vh;
+    background-color: rgb(68, 68, 68);
+    color: rgb(167, 167, 167);
+    margin-top: 1vh;
+    box-shadow: 0 0 15px $color2;
+}
+
+.endorsements img {
+    height: 13vh;
+}
+
+.example-cage {
+    width: 25vw;
+    height: 30vh;
+    object-fit: contain;
+    margin: 0 !important;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 1px lighten($color2, 30%);
+}
+
+.top {
+    z-index: 100;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.container-header {
+    background-color: rgb(45, 45, 45);
+    color: rgb(219, 219, 219);
+}
+
+video {
+    z-index: 0;
+}
+
+.row {
+    display: flex;
+    align-content: space-around;
+    justify-content: space-around;
+    width: 100vw;
+    margin-bottom: 0;
+}
+
+.code-cage {
+    height: 30vh;
+}
+
+.half {
+    width: 40vw;
+    margin: 0;
+    display: inline;
+}
+
+.editor {
+    height: 100%;
+    display: inline-block;
+}
+
+iframe {
+    border-radius: 10px;
+    background-color: white;
+}
+
+.closer {
+    padding: 0 5%;
+    z-index: 2;
+    padding-left: 10px;
+    position: absolute;
+    border-radius: 10px;
+    background-color: $color3;
+}
+
+.desktop {
+    height: 45vh;
+    width: 80vh;
+    margin: 0;
+    position: relative;
+}
+
+.vertical-phone {
+    display: inline-block;
+    height: 45vh;
+    width: 30vh;
+    margin: 0 auto;
+    position: relative;
+    top: 0;
+}
+
+.preview {
+    display: inline-block;
+    overflow: none;
+}
+
+.horizontal-phone {
+    display: inline-block;
+    height: 30vh;
+    width: 45vh;
+    margin: 0 auto;
+    position: relative;
+    top: -40%;
+}
+
+.collapsible-body {
+    height: 40vh;
+}
+
+.row:after {
+    content: none;
+}
+
+.header-input {
+    width: 250px !important;
+    height: 30px !important;
+}
+
+#header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.login-field {
+    background: beige;
+    color: black;
+    padding: 5px;
+}
+
+.login-btn {
+    height: 30px;
+    line-height: 30px;
+}
+
+.low-margin {
+    margin: 1vh;
+}
+
+.roomy {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+.float-down {
+    position: relative;
+    top: 5vh;
+}
+
+.float-up {
+    position: relative;
+    bottom: 5vh;
+}
+
+.resizeable {
+    overflow: scroll;
+    resize: vertical;
+}
+
+.ace_content {
+    height: 100%;
+}
+
+.slider .slides li img {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: $color4;
+}
+
+.caption {
+    background-color: rgba(93, 217, 193, .9);
+}
