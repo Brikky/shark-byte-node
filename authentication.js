@@ -5,7 +5,7 @@ var User = mongoose.model('User');
 module.exports.register = function(req, res) {
   var user = new User();
 
-  user.name = req.body.name;
+  user.name = req.body.username;
   // user.email = req.body.email;
   user.setPassword(req.body.password);
 
@@ -19,18 +19,14 @@ module.exports.register = function(req, res) {
   });
 };
 
-
 module.exports.login = function(req, res) {
-
   passport.authenticate('local', function(err, user, info){
     var token;
-
     // If Passport throws/catches an error
     if (err) {
       res.status(404).json(err);
       return;
     }
-
     // If a user is found
     if(user){
       token = user.generateJwt();

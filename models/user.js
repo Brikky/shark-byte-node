@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
 var Cage = require('./cage');
 
 var UserSchema = new Schema({
-    username: String,
-    password: String,
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true, },
     cages: [Cage.schema]
 });
 

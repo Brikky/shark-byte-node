@@ -5,5 +5,5 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-require('./models/cage.js');
+require('./models/index.js');
 require('passport.js');
