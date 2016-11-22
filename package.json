@@ -24,8 +24,12 @@
     "babel-preset-react": "^6.11.1",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.8",
     "node-materialize": "^1.1.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-router": "^2.6.1"

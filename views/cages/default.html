@@ -1,0 +1,208 @@
+<head>
+    <link href="http://i.imgur.com/rdg4eCRr.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta charset="utf-8"/>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <!-- CodeMirror and its JavaScript mode file -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css"/>
+    <!-- Firepad -->
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css"/>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
+    </script>
+    <link rel="stylesheet" href="css/main.css" media="screen">
+    <div class="row">
+        <div class="col m6 l6">
+            <div class="center">
+                <button id="save-btn" class="btn">Save</button>
+                <button id="export-btn" class="btn">Export</button>
+            </div>
+            <ul class="collapsible popout" data-collapsible="accordion">
+                <li>
+                    <div id="html-header" class="collapsible-header">HTML</div>
+                    <div class="collapsible-body">
+                        <div id="html-editor" class="col m12 editor"></div>
+                    </div>
+                </li>
+                <li>
+                    <div id="css-header" class="collapsible-header">CSS</div>
+                    <div class="collapsible-body">
+                        <div id="css-editor" class="col m12 editor"></div>
+                    </div>
+                </li>
+                <li>
+                    <div id="javascript-header" class="collapsible-header">JavaScript
+                      <span class="right run-js"><i class="material-icons">play_arrow</i></span>
+                    </div>
+                    <div class="collapsible-body">
+                        <div id="javascript-editor" class="col m12 editor"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col m6 l6">
+            <div class="preview">
+                <div class="closer hidden" hidden>[X] close</div>
+                <iframe id="desktop" class="desktop"></iframe>
+            </div>
+            <div class="preview">
+                <div class="closer hidden" hidden>[X] close</div>
+                <iframe id="horizontal-phone" class="horizontal-phone"></iframe>
+            </div>
+            <div class="preview">
+                <div class="closer hidden" hidden>[X] close</div>
+                <iframe id="vertical-phone" class="vertical-phone"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var htmleditor = ace.edit("html-editor");
+        htmleditor.setTheme("ace/theme/monokai");
+        htmleditor.getSession().setMode("ace/mode/html"); //ACE CODE HIGHLIGHTING
+
+        var csseditor = ace.edit("css-editor");
+        csseditor.setTheme("ace/theme/monokai");
+        csseditor.getSession().setMode("ace/mode/css"); //ACE CODE HIGHLIGHTING
+
+        var javascripteditor = ace.edit("javascript-editor");
+        javascripteditor.setTheme("ace/theme/monokai");
+        javascripteditor.getSession().setMode("ace/mode/javascript"); //ACE CODE HIGHLIGHTING
+
+        $(document).ready(function () {
+            //have a variable for each editor to see if content has changed, set to true using editor.on(change) if changed, iframe should pull in that section's text-align cache the previews
+            var desktop_iframe = document.querySelector('#desktop');
+            var horizontal_phone_iframe = document.querySelector('#horizontal-phone');
+            var vertical_phone_iframe = document.querySelector('#vertical-phone');
+
+            //insert sections for html, css, and js into previews
+            var starterCode = "<style></style><script><\/script>"
+            desktop_iframe.srcdoc = starterCode;
+            horizontal_phone_iframe.srcdoc = starterCode;
+            vertical_phone_iframe.srcdoc = starterCode;
+
+            //close buttons should not be immediately visible
+            $('.closer').hide();
+
+            //hover over a preview to see close button
+            $('.preview').hover(function () {
+                $(this).find($('.closer')).show();
+            }, function () {
+                $(this).find($('.closer')).hide();
+            })
+
+            //close preview when close button is clicked
+            $('.closer').click(function () {
+                var dis = $(this);
+                dis.siblings($('iframe')).remove();
+                dis.parent().unbind('mouseenter').unbind('mouseleave');
+                dis.remove();
+            });
+
+            //clear all code from editors and previews
+            $('#clear-btn').click(function () {});
+
+            //export all the code into a document for the user
+            $('#export-btn').click(function () {
+              var code = htmleditor.getValue() + "\n<style>\n"+ csseditor.getValue() + "\n</style>" + "\n<script>\n" + javascripteditor.getValue() + "\n<\/script>"
+              download(code, 'sharkcage.txt', 'text/plain')
+            });
+
+            //ensure editors resize to fit the div after opening
+            $('.collapsible-header').click(function () {
+                htmleditor.resize();
+                csseditor.resize();
+                javascripteditor.resize();
+            })
+
+            //focus on the text header when user opens a code tab
+            $('#html-header').click(function () {
+                htmleditor.focus();
+            });
+            $('#css-header').click(function () {
+                csseditor.focus();
+            });
+            $('#javascript-header').click(function () {
+                javascripteditor.focus();
+            });
+
+            //helper function to limit the frequency an event-based function fires
+            function debounce(fn, delay) {
+                var timer = null;
+                return function () {
+                    var context = this,
+                        args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        fn.apply(context, args);
+                    }, delay);
+                };
+            }
+
+            //helper function to create file download
+            function download(data, filename, type) {
+                var a = document.createElement("a"),
+                    file = new Blob([data], {type: type});
+                if (window.navigator.msSaveOrOpenBlob) // IE10+
+                    window.navigator.msSaveOrOpenBlob(file, filename);
+                else { // Others
+                    var url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function() {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                }
+            }
+
+            $('.run-js').on("click", function(e){
+              //prevent the click from causing the parent div to open/close
+              e.stopPropagation();
+
+              //create a new script tag with the user's JS
+              var js = document.createElement("script")
+              js.text = javascripteditor.getValue();
+
+              //remove the old script
+              $("#desktop").contents().find("script").remove();
+              $("#vertical-phone").contents().find("script").remove();
+              $("#horizontal-phone").contents().find("script").remove();
+
+              //append the new script, which will cause it to execute
+              $("#desktop").contents().append(js);
+              $("#vertical-phone").contents().append(js);
+              $("#horizontal-phone").contents().append(js);
+            });
+
+            //when an editor is changed, update that section of the previews
+            htmleditor.on("change", debounce(function () {
+                $("#desktop").contents().find("body").html(htmleditor.getValue());
+                $("#vertical-phone").contents().find("body").html(htmleditor.getValue());
+                $("#horizontal-phone").contents().find("body").html(htmleditor.getValue());
+
+            }, 250))
+
+            csseditor.on("change", debounce(function () {
+                $("#desktop").contents().find("style").html(csseditor.getValue());
+                $("#vertical-phone").contents().find("style").html(csseditor.getValue());
+                $("#horizontal-phone").contents().find("style").html(csseditor.getValue());
+
+            }, 250))
+
+            javascripteditor.on("change", debounce(function () {
+
+
+            }, 250))
+
+        })
+    </script>

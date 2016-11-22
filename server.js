@@ -4,6 +4,8 @@ var app = express();
 
 //Middleware for static file service
 app.use(express.static("./public"));
+app.use(passport.initialize());
+app.use('/api', routesApi);
 
 //Require all resources in app
 app.use(require("./resources"));
