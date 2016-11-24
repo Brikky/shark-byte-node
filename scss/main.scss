@@ -3,7 +3,6 @@ $color2: rgba(68, 68, 68, 1);
 $color3: rgba(93, 217, 193, 1);
 $color4: rgba(75, 198, 185, 1);
 $color5: rgba(29, 52, 97, 1);
-
 $primary-color: $color4 !default;
 $secondary-color: $color5 !default;
 @import "materialize";
@@ -14,6 +13,7 @@ body {
 
 nav {
     height: 4em;
+    margin-bottom: 2em;
 }
 
 body,
@@ -159,6 +159,18 @@ iframe {
 .header-input {
     width: 250px !important;
     height: 30px !important;
+
+}
+
+input {
+    text-align: center;
+    color: $color1;
+    border-radius: 5px !important;
+    background-color: lighten($color3, 30%) !important;
+}
+
+.btn{
+  background-color: $color5 !important;
 }
 
 #header {
@@ -167,12 +179,12 @@ iframe {
 }
 
 .login-field {
-    background: beige;
+    background: none;
     color: black;
     padding: 5px;
 }
 
-.login-btn {
+.header-btn {
     height: 30px;
     line-height: 30px;
 }
@@ -213,4 +225,88 @@ iframe {
 
 .caption {
     background-color: rgba(93, 217, 193, .9);
+}
+
+.form-container {
+  width: 80vw;
+  max-width: 500px;
+  background-color: lighten($color4, 30%);
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 15px;
+}
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+
+body {
+  background-color: antiquewhite;
+}
+
+.card {
+  background-color: #f4f4f4;
+  width: 300px;
+  margin: 10px auto;
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.7);
+}
+
+.card-header {
+  overflow: hidden;
+  width: 100%;
+  max-height: 200px;
+}
+
+.card-header img{
+  width: 100%;
+}
+
+.card-content {
+  width: 85%;
+  margin: 35px auto;
+}
+
+.card-content h3 {
+  font-size: 25px;
+  margin-bottom: 0;
+  color: $color5;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card-content h4 {
+  font-size: 14px;
+  margin-top: 0;
+  color: $color4;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.card-content p {
+  color: $color3;
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+.card-footer {
+  border-top: solid 1px $color1;
+  padding: 5px;
+}
+
+.card-footer ul {
+  padding: 0;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.card-footer ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 5px;
+}
+
+.card-footer ul li i {
+  font-size: 2em;
+  color: $color5;
+}
+
+.justify{
+  text-align: justify;
 }

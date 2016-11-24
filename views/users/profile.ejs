@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="http://i.imgur.com/XVlMHth.png" rel="shortcut icon" type="image/x-icon"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/main.css" media="screen">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
+    </script>
+    <title>SharkByte</title>
+
+  </head>
+  <% include ../partials/nav %>
+  <body>
+<h5 class="center">Check out your cages, <%= user.username %></h5>
+<div class="row">
+<div class="col s12 m5"><div class="card">
+  <div class="card-header">
+    <img src="https://s-media-cache-ak0.pinimg.com/originals/3b/f0/77/3bf0775b0d234545d14a5941be966ab2.jpg"/>
+  </div>
+  <div class="card-content">
+    <h3 class="center"><%= user.username %></h3>
+    <% if (user.headline){%>
+      <h4 class="center"><%= user.headline %></h4>
+    <% } %>
+    <% if (user.description){%>
+      <p class="justify"><%= user.description %></p>
+    <% } %>
+  </div>
+  <div class="card-footer">
+    <ul>
+      <% if (user.stackoverflow){%>
+        <li>
+          <a href="#"><i class="fa fa-stack-overflow"></i></a>
+        </li>
+      <% } %>
+      <% if (user.github){%>
+        <li>
+          <a href="#"><i class="fa fa-github"></i></a>
+        </li>
+      <% } %>
+    </ul>
+  </div>
+</div></div>
+<div class="col s6 m7">test</div>
+</div>
+  </body>
+  </html>

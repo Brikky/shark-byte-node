@@ -4,8 +4,14 @@ var UserController = require("./controllers/users_controller");
 var CageController = require("./controllers/cages_controller");
 var passport = require('passport');
 
+//home page
+router.get("/", UserController.index);
+//default cage
 router.get("/cages", CageController.index);
-router.get("/users", UserController.index);
+//profile
+router.get("/profile", UserController.profile);
+
+//account routes
 router.get("/signup", UserController.new);
 router.post('/signup', UserController.register);
 router.get('/signin', UserController.signin);

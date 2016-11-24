@@ -1,0 +1,27 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<nav>
+    <div class="nav-wrapper">
+      <div id="header" class="offset-s6 ">
+        <% if (!user) {%>
+          <form method="POST" action="/signin">
+            <span class="hide-on-med-and-down login-field">
+              <input class="header-input" type="text" name="username" placeholder="username">
+            </span>
+            <span class="hide-on-med-and-down login-field">
+              <input class="header-input" type="password" name="password" placeholder="password">
+            </span>
+            <span class="hide-on-med-and-down">
+              <input type="submit" class="btn header-btn" value="Log In">
+            </span>
+          </form>
+          <span class = "hide-on-large-only"></span>
+          <span><a href="/signup" class="btn header-btn">join</a></span>
+        <% } %>
+
+        <% if (user){ %>
+          <span>profile</span>
+          <span><a href="/logout" class="btn header-btn">logout</a></span>
+        <% } %>
+    </div>
+  </div>
+</nav>

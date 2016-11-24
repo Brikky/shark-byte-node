@@ -6,7 +6,11 @@ var Cage = require('./cage');
 
 var UserSchema = new Schema({
     username: {type: String, required: true, unique: true},
-    password: {type: String, required: true, },
+    password: {type: String, required: true},
+    headline: {type: String, required: true},
+    description: {type: String, required: true},
+    stackoverflow: {type: String, required: false},
+    github: {type: String, required: false},
     cages: [Cage.schema]
 });
 
