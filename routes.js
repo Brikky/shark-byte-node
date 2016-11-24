@@ -10,6 +10,8 @@ router.get("/", UserController.index);
 router.get("/cages", CageController.index);
 //profile
 router.get("/profile", UserController.profile);
+//cage creation
+router.get("/cages/new", CageController.new);
 
 //account routes
 router.get("/signup", UserController.new);
