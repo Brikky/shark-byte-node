@@ -6552,10 +6552,13 @@ iframe {
   width: 250px !important;
   height: 30px !important; }
 
-input {
+input, textarea {
   text-align: center;
   color: #a7a7a7;
   border-radius: 5px !important;
+  background-color: #d9f6f0 !important; }
+
+textarea {
   background-color: #d9f6f0 !important; }
 
 .btn, .btn-large {

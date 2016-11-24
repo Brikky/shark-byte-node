@@ -4,9 +4,6 @@ var User = mongoose.model('User');
 
 module.exports.register = function(req, res) {
   var user = new User();
-
-  user.name = req.body.username;
-  // user.email = req.body.email;
   user.setPassword(req.body.password);
 
   user.save(function(err) {
@@ -24,7 +21,7 @@ module.exports.login = function(req, res) {
     var token;
     // If Passport throws/catches an error
     if (err) {
-      res.status(404).json(err);
+      res.status(404).json('passport error ' + err);
       return;
     }
     // If a user is found
@@ -37,7 +34,7 @@ module.exports.login = function(req, res) {
       });
     } else {
       // If user is not found
-      res.status(401).json(info);
+      res.status(401).json('user not found, ' + info);
     }
   })(req, res);
 

@@ -162,11 +162,15 @@ iframe {
 
 }
 
-input {
+input, textarea {
     text-align: center;
     color: $color1;
     border-radius: 5px !important;
     background-color: lighten($color3, 30%) !important;
+}
+
+textarea{
+  background-color: lighten($color3, 30%) !important;
 }
 
 .btn{
@@ -235,6 +239,7 @@ input {
   padding: 15px;
   border-radius: 15px;
 }
+
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
 
 body {

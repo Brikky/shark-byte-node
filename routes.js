@@ -13,7 +13,7 @@ router.get("/profile", UserController.profile);
 
 //account routes
 router.get("/signup", UserController.new);
-router.post('/signup', UserController.register);
+router.post('/signup', UserController.createAccount);
 router.get('/signin', UserController.signin);
 router.post('/signin', passport.authenticate('local'), UserController.verify);
 router.get('/logout', UserController.logout);

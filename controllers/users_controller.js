@@ -8,9 +8,6 @@ var server = require('../server.js');
 
 
 UsersController.index = function(req, res) {
-  console.log(JSON.stringify(req.user));
-  console.log("locals " + JSON.stringify(req.app.locals.user));
-  var current_user = JSON.stringify(req.user);
   res.render('../views/users/home.ejs');
 }
 
@@ -22,16 +19,16 @@ UsersController.new = function(req, res) {
   res.sendFile(path.resolve('./views/users/signup.html'));
 }
 
-UsersController.register = function(req, res) {
+UsersController.createAccount = function(req, res) {
   if(req.body.password != req.body.passwordConfirm){
     backURL=req.header('Referer') || '/';
   // error message passwords do not match
   res.redirect(backURL);
   }
-  User.register(new User({ username: req.body.username }), req.body.password,
+  var boy=new User({ username: req.body.username});
+  User.register(new User({ username: req.body.username}), req.body.password,
     function (err, newUser) {
-      passport.authenticate('local')(req, res, function() {
-      });
+      passport.authenticate('local')(req, res, function() {});
     }
   );
   res.redirect(path.resolve('/'));
@@ -42,7 +39,6 @@ UsersController.signin = function(req, res) {
 }
 
 UsersController.verify = function(req, res) {
-  console.log("hey its " + req.user)
   req.app.locals.user = req.user;
 
   res.redirect(path.resolve('/'));

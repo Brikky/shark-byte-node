@@ -51,12 +51,14 @@
         <iframe class="example-cage center-align" srcdoc="cagesource">
         </iframe>
       </div>
+      <% if (user) {%>
     <% user.cages.forEach(function(cage){%>
       <div>
         <h6 class="center"><%= cage.name %></h6>
           <iframe class="example-cage center-align" srcdoc="<%= cage.html + cage.style + cage.script %>"></iframe>
       </div>
       <% }); %>
+      <% } %>
 </div>
   </body>
   </html>
