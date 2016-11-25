@@ -23,10 +23,9 @@ UsersController.createAccount = function(req, res) {
   if(req.body.password != req.body.passwordConfirm){
     backURL=req.header('Referer') || '/';
   // error message passwords do not match
-  res.redirect(backURL);
+  res.redirect('./views/users/signup.html');
   }
-  var boy = new User({ username: req.body.username});
-  User.register(new User({ username: req.body.username}), req.body.password,
+  User.register(new User({  username: req.body.username, headline: req.body.headline, description: req.body.description}), req.body.password,
     function (err, newUser) {
       passport.authenticate('local')(req, res, function() {});
     }
