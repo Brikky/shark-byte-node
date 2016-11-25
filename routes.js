@@ -6,15 +6,14 @@ var passport = require('passport');
 
 //home page
 router.get("/", UserController.index);
-//default cage
+//cages
+router.get("/cages/new", CageController.new);
+router.post("/cages/create", CageController.create);
+router.get("/cages/:id", CageController.show);
+router.post("/cages/:id", CageController.update);
 router.get("/cages", CageController.index);
 //profile
 router.get("/profile", UserController.profile);
-//cage creation
-router.get("/cages/new", CageController.new);
-router.get("/cages/create", CageController.create);
-router.get("/cages/:id", CageController.show);
-
 //account routes
 router.get("/signup", UserController.new);
 router.post('/signup', UserController.createAccount);
