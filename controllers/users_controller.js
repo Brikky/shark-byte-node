@@ -25,7 +25,7 @@ UsersController.createAccount = function(req, res) {
   // error message passwords do not match
   res.redirect(backURL);
   }
-  var boy=new User({ username: req.body.username});
+  var boy = new User({ username: req.body.username});
   User.register(new User({ username: req.body.username}), req.body.password,
     function (err, newUser) {
       passport.authenticate('local')(req, res, function() {});

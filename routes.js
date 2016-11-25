@@ -12,6 +12,8 @@ router.get("/cages", CageController.index);
 router.get("/profile", UserController.profile);
 //cage creation
 router.get("/cages/new", CageController.new);
+router.get("/cages/create", CageController.create);
+router.get("/cages/:id", CageController.show);
 
 //account routes
 router.get("/signup", UserController.new);
