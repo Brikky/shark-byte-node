@@ -8,7 +8,7 @@ $secondary-color: $color5 !default;
 @import "materialize";
 /*####################################*/
 body {
-    background: lighten($color3, 30%);
+    background: lighten($color3, 30%) !important;
 }
 
 nav {
@@ -21,7 +21,6 @@ html {
     margin: 0;
     padding: 0;
 }
-
 .video {
     margin: 0 auto;
     width: 98vw;

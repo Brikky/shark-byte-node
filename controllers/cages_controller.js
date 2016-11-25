@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var db = require('../models/index.js');
 var path = require('path');
 
+
 CagesController.index = function(req, res) {
   res.sendFile('../views/new.html', { root: __dirname });
 }

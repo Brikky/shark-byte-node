@@ -6424,7 +6424,7 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 
 /*####################################*/
 body {
-  background: #d9f6f0; }
+  background: #d9f6f0 !important; }
 
 nav {
   height: 4em;

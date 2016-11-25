@@ -81,9 +81,9 @@
         $(document).ready(function() {
             var cageData = {
                 id: '<%=cageData._id%>',
-                html: '<%=cageData.html%>',
-                style: '<%=cageData.style%>',
-                script: '<%=cageData.script%>'
+                html: ('<%=cageData.html.replace(/(\r\n|\n|\r)/gm,"")%>'),
+                style: ('<%=cageData.style.replace(/(\r\n|\n|\r)/gm,"")%>'),
+                script: ('<%=cageData.script.replace(/(\r\n|\n|\r)/gm,"")%>')
             }
             if (cageData.html) {
                 htmleditor.setValue(cageData.html, 1)
