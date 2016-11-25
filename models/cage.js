@@ -5,7 +5,8 @@ var CageSchema = new Schema({
   html: String,
   style: String,
   script: String,
-  name: String
+  name: String,
+  dbRef: String
 });
 
 var Cage = mongoose.model('Cage', CageSchema);

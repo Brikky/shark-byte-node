@@ -3,18 +3,14 @@
     <meta charset="utf-8" />
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-    <!-- CodeMirror and its JavaScript mode file -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
     <!-- Firepad -->
-    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/theme-textmate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css"/>
     <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
     </script>
     <link rel="stylesheet" href="/css/main.css" media="screen">
@@ -66,6 +62,8 @@
     </div>
 
     <script>
+    var dbRef = '<%= cageData.dbRef %>'
+
         var htmleditor = ace.edit("html-editor");
         htmleditor.setTheme("ace/theme/monokai");
         htmleditor.getSession().setMode("ace/mode/html"); //ACE CODE HIGHLIGHTING
@@ -78,29 +76,39 @@
         javascripteditor.setTheme("ace/theme/monokai");
         javascripteditor.getSession().setMode("ace/mode/javascript"); //ACE CODE HIGHLIGHTING
 
+        function init() {
+    console.log('ace',ace)
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBrB_6DCVZ8NcpdQveMlLbbofmhgRhBed4",
+                authDomain: "sharkbyte-63a84.firebaseapp.com",
+                databaseURL: "https://sharkbyte-63a84.firebaseio.com",
+                storageBucket: "sharkbyte-63a84.appspot.com",
+                messagingSenderId: "92005039891"
+            };
+            firebase.initializeApp(config);
+
+            // Get Firebase Database reference.
+            var ref = firebase.database().ref().child(dbRef);
+            htmlFirepadRef = ref;
+            styleFirepadRef = ref.child('css');
+            scriptFirepadRef = ref.child('js');
+
+            // Create Firepad
+            var htmlfirepad = Firepad.fromACE(htmlFirepadRef, htmleditor);
+            var cssfirepad = Firepad.fromACE(styleFirepadRef, csseditor);
+            var javascriptfirepad = Firepad.fromACE(scriptFirepadRef, javascripteditor);
+        }
+
         $(document).ready(function() {
-            var cageData = {
-                id: '<%=cageData._id%>',
-                html: ('<%=cageData.html.replace(/(\r\n|\n|\r)/gm,"")%>'),
-                style: ('<%=cageData.style.replace(/(\r\n|\n|\r)/gm,"")%>'),
-                script: ('<%=cageData.script.replace(/(\r\n|\n|\r)/gm,"")%>')
-            }
-            if (cageData.html) {
-                htmleditor.setValue(cageData.html, 1)
-            }
-            if (cageData.style) {
-                csseditor.setValue(cageData.style, 1)
-            }
-            if (cageData.script) {
-                javascripteditor.setValue(cageData.script, 1)
-            }
+          init();
             //have a variable for each editor to see if content has changed, set to true using editor.on(change) if changed, iframe should pull in that section's text-align cache the previews
             var desktop_iframe = document.querySelector('#desktop');
             var horizontal_phone_iframe = document.querySelector('#horizontal-phone');
             var vertical_phone_iframe = document.querySelector('#vertical-phone');
 
             //insert sections for html, css, and js into previews
-            var starterCode = cageData.html + "\n<style>\n" + cageData.style + "\n</style>\n<script>\n" + cageData.script + "<\n\/script>"
+            var starterCode = "\n<style>\n\n</style>\n<script>\n<\n\/script>"
             desktop_iframe.srcdoc = starterCode;
             horizontal_phone_iframe.srcdoc = starterCode;
             vertical_phone_iframe.srcdoc = starterCode;

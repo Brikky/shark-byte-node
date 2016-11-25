@@ -6573,6 +6573,9 @@ textarea {
   color: black;
   padding: 5px; }
 
+a.powered-by-firepad {
+  display: none; }
+
 .header-btn {
   height: 30px;
   line-height: 30px; }
