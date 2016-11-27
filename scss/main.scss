@@ -318,3 +318,14 @@ body {
 .justify{
   text-align: justify;
 }
+
+.flex-center{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.flex-center-self{
+  display: flex;
+  align-self: center;
+}
