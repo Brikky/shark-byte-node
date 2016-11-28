@@ -3,17 +3,20 @@ var router = express.Router();
 var UserController = require("./controllers/users_controller");
 var CageController = require("./controllers/cages_controller");
 var passport = require('passport');
+var auth = require('./authentication.js');
 
 //home page
 router.get("/", UserController.index);
+//########**PROTECTED**########
 //cages
-router.get("/cages/new", CageController.new);
-router.post("/cages/create", CageController.create);
-router.get("/cages/:id", CageController.show);
-router.post("/cages/:id", CageController.update);
-router.get("/cages", CageController.index);
+router.get("/cages/new", auth.checkPermission, CageController.new);
+router.post("/cages/create", auth.checkPermission, CageController.create);
+router.get("/cages/:id", auth.checkPermission, CageController.show);
+router.post("/cages/:id", auth.checkPermission, CageController.update);
+router.get("/cages", auth.checkPermission, CageController.index);
 //profile
-router.get("/profile", UserController.profile);
+router.get("/profile", auth.checkPermission, UserController.profile);
+//########**END PROTECTED**########
 //account routes
 router.get("/signup", UserController.new);
 router.post('/signup', UserController.createAccount);

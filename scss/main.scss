@@ -3,6 +3,7 @@ $color2: rgba(68, 68, 68, 1);
 $color3: rgba(93, 217, 193, 1);
 $color4: rgba(75, 198, 185, 1);
 $color5: rgba(29, 52, 97, 1);
+
 $primary-color: $color4 !default;
 $secondary-color: $color5 !default;
 @import "materialize";
@@ -87,7 +88,14 @@ video {
     width: 100vw;
     margin-bottom: 0;
 }
-
+#messages{
+  text-align: center;
+  font-size: 1.5em;
+  color: $color5;
+  border: solid 3px $color4;
+  margin: 2em;
+  background-color: $color1;
+}
 .code-cage {
     height: 30vh;
 }
@@ -173,7 +181,7 @@ textarea{
 }
 
 .btn{
-  background-color: $color5 !important;
+  background-color: $color5;
 }
 
 #header {

@@ -6492,6 +6492,14 @@ video {
   width: 100vw;
   margin-bottom: 0; }
 
+#messages {
+  text-align: center;
+  font-size: 1.5em;
+  color: #1d3461;
+  border: solid 3px #4bc6b9;
+  margin: 2em;
+  background-color: #a7a7a7; }
+
 .code-cage {
   height: 30vh; }
 
@@ -6562,7 +6570,7 @@ textarea {
   background-color: #d9f6f0 !important; }
 
 .btn, .btn-large {
-  background-color: #1d3461 !important; }
+  background-color: #1d3461; }
 
 #header {
   display: flex;
