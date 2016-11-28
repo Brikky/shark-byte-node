@@ -6472,6 +6472,9 @@ html {
   border-radius: 5px;
   box-shadow: 0 0 10px 1px #919191; }
 
+.cage-link {
+  width: 25vw; }
+
 .top {
   z-index: 100;
   position: relative;
@@ -6560,11 +6563,17 @@ iframe {
   width: 250px !important;
   height: 30px !important; }
 
+a {
+  z-index: 100; }
+
 input, textarea {
   text-align: center;
   color: #a7a7a7;
   border-radius: 5px !important;
   background-color: #d9f6f0 !important; }
+
+.color5 {
+  background-color: #1d3461 !important; }
 
 textarea {
   background-color: #d9f6f0 !important; }

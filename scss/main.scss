@@ -64,6 +64,9 @@ html {
     border-radius: 5px;
     box-shadow: 0 0 10px 1px lighten($color2, 30%);
 }
+.cage-link{
+  width: 25vw;
+}
 
 .top {
     z-index: 100;
@@ -169,11 +172,19 @@ iframe {
 
 }
 
+a{
+  z-index: 100;
+}
+
 input, textarea {
     text-align: center;
     color: $color1;
     border-radius: 5px !important;
     background-color: lighten($color3, 30%) !important;
+}
+
+.color5{
+  background-color: $color5 !important;
 }
 
 textarea{
