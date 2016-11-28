@@ -34,7 +34,8 @@ app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
 app.locals.user = false;
 //Create a server
-app.listen(8080, function() {
+var port = process.env.PORT || 8000
+app.listen(port, function() {
     console.log('running on port 8080')
 });
 
