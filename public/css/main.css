@@ -6573,6 +6573,9 @@ textarea {
   color: black;
   padding: 5px; }
 
+a.powered-by-firepad {
+  display: none; }
+
 .header-btn {
   height: 30px;
   line-height: 30px; }
@@ -6674,3 +6677,12 @@ body {
 
 .justify {
   text-align: justify; }
+
+.flex-center {
+  display: flex;
+  align-content: center;
+  justify-content: center; }
+
+.flex-center-self {
+  display: flex;
+  align-self: center; }
