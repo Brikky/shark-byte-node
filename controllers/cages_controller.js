@@ -15,7 +15,7 @@ CagesController.new = function(req, res) {
 }
 
 CagesController.create = function(req, res) {
-  console.log(req.body)
+    console.log(req.body)
     db.User.findOne({
         _id: req.app.locals.user.id
     }, function(err, user) {
@@ -37,27 +37,35 @@ CagesController.create = function(req, res) {
 
 CagesController.show = function(req, res) {
     console.log('show action', req.params.id)
-    db.Cage.findOne({
-        _id: req.params.id
-    }, function(err, cage) {
-        res.render('../views/cages/show.ejs', {
-            'cageData': cage
-        });
-    });
+    db.User.findOne({
+            _id: req.user.id
+        }, function(err, user) {
+            var cage = user.cages.id(req.params.id);
+            res.render('../views/cages/show.ejs', {
+                'cageData': cage
+            });
+        })
 }
 
 CagesController.update = function(req, res) {
-    db.Cage.update({
-        _id: req.params.id
-    }, {
-        html: req.body.html,
-        style: req.body.style,
-        script: req.body.script
-    }, function(err, affected, res) {
-        console.log('error', err);
-        console.log('affected', affected);
-        console.log('response', res);
-    });
+    if (req.body.public) {
+        var privacyStatus = req.body.public === 'true';
+              db.Cage.update({
+            _id: req.params.id
+        }, {
+            public: privacyStatus
+        }, function(err, affected, res) {
+        });
+    } else {
+        db.Cage.update({
+            _id: req.params.id
+        }, {
+            html: req.body.html,
+            style: req.body.style,
+            script: req.body.script
+        }, function(err, affected, res) {
+        });
+    }
     res.send('cage updated successfully');
 }
 

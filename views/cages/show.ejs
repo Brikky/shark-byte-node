@@ -18,7 +18,15 @@
 <% include ../partials/nav %>
     <div class="row">
         <div class="col m6 l6">
-            <div class="center">
+            <div class="side-by-side">
+              <div class="flex-center">
+                <span class="flex-center-self privacy-option">Private </span>
+                  <label class="show-switch">
+                  <input id="privacy" type="checkbox">
+                  <div class="show-slider"></div>
+                  </label>
+                <span class="flex-center-self privacy-option"> Public</span>
+              </div>
                 <button id="save-btn" class="btn">Save</button>
                 <button id="export-btn" class="btn">Export</button>
             </div>
@@ -154,10 +162,30 @@
                     })
                     .done(function(res) {
                         console.log('response', res);
+                        //modify the button to let user know content was saved
                         $('#save-btn').css('background-color', 'green');
+                        $('#save-btn').text('Saved!');
+                        //reset button to initial state
                         setTimeout(function() {
-                            $('#save-btn').removeAttr('style')
-                          }, 3000);
+                            $('#save-btn').removeAttr('style');
+                            $('#save-btn').text('save');
+                        }, 3000);
+                    });
+            });
+
+            //change privacy setting
+            $('#privacy').click(function() {
+              //if checked, cage.public should be set to true
+              var privacy = $('#privacy').is(':checked');
+                $.ajax({
+                        type: "POST",
+                        url: "/cages/" + cageID + "/",
+                        data: {
+                            "public": privacy,
+                        }
+                    })
+                    .done(function(res) {
+                        console.log('response', res);
                     });
             });
 
@@ -237,15 +265,12 @@
                 $("#desktop").contents().find("body").html(htmleditor.getValue());
                 $("#vertical-phone").contents().find("body").html(htmleditor.getValue());
                 $("#horizontal-phone").contents().find("body").html(htmleditor.getValue());
-
             }, 250))
 
             csseditor.on("change", debounce(function() {
                 $("#desktop").contents().find("style").html(csseditor.getValue());
                 $("#vertical-phone").contents().find("style").html(csseditor.getValue());
                 $("#horizontal-phone").contents().find("style").html(csseditor.getValue());
-
             }, 250))
-
         })
     </script>
