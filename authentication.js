@@ -39,3 +39,13 @@ module.exports.login = function(req, res) {
   })(req, res);
 
 };
+
+module.exports.checkPermission = function(req, res, next){
+  if (req.user){
+    next();
+  }
+  else{
+    req.flash('error','You need to login first to access that page!');
+    res.redirect('/');
+  }
+};

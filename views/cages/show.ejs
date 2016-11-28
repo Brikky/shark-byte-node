@@ -3,18 +3,14 @@
     <meta charset="utf-8" />
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-    <!-- CodeMirror and its JavaScript mode file -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/mode/javascript/javascript.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.17.0/codemirror.css" />
     <!-- Firepad -->
-    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/theme-textmate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.css" />
     <script src="https://cdn.firebase.com/libs/firepad/1.4.0/firepad.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js" type="text/javascript" charset="utf-8"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js">
     </script>
     <link rel="stylesheet" href="/css/main.css" media="screen">
@@ -22,7 +18,15 @@
 <% include ../partials/nav %>
     <div class="row">
         <div class="col m6 l6">
-            <div class="center">
+            <div class="side-by-side">
+              <div class="flex-center">
+                <span class="flex-center-self privacy-option">Private </span>
+                  <label class="show-switch">
+                  <input id="privacy" type="checkbox">
+                  <div class="show-slider"></div>
+                  </label>
+                <span class="flex-center-self privacy-option"> Public</span>
+              </div>
                 <button id="save-btn" class="btn">Save</button>
                 <button id="export-btn" class="btn">Export</button>
             </div>
@@ -66,6 +70,9 @@
     </div>
 
     <script>
+        var dbRef = '<%= cageData.dbRef %>'
+        var cageID = '<%= cageData.id %>'
+
         var htmleditor = ace.edit("html-editor");
         htmleditor.setTheme("ace/theme/monokai");
         htmleditor.getSession().setMode("ace/mode/html"); //ACE CODE HIGHLIGHTING
@@ -78,29 +85,39 @@
         javascripteditor.setTheme("ace/theme/monokai");
         javascripteditor.getSession().setMode("ace/mode/javascript"); //ACE CODE HIGHLIGHTING
 
+        function init() {
+            console.log('ace', ace)
+                // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBrB_6DCVZ8NcpdQveMlLbbofmhgRhBed4",
+                authDomain: "sharkbyte-63a84.firebaseapp.com",
+                databaseURL: "https://sharkbyte-63a84.firebaseio.com",
+                storageBucket: "sharkbyte-63a84.appspot.com",
+                messagingSenderId: "92005039891"
+            };
+            firebase.initializeApp(config);
+
+            // Get Firebase Database reference.
+            var ref = firebase.database().ref().child(dbRef);
+            htmlFirepadRef = ref;
+            styleFirepadRef = ref.child('css');
+            scriptFirepadRef = ref.child('js');
+
+            // Create Firepad
+            var htmlfirepad = Firepad.fromACE(htmlFirepadRef, htmleditor);
+            var cssfirepad = Firepad.fromACE(styleFirepadRef, csseditor);
+            var javascriptfirepad = Firepad.fromACE(scriptFirepadRef, javascripteditor);
+        }
+
         $(document).ready(function() {
-            var cageData = {
-                id: '<%=cageData._id%>',
-                html: ('<%=cageData.html.replace(/(\r\n|\n|\r)/gm,"")%>'),
-                style: ('<%=cageData.style.replace(/(\r\n|\n|\r)/gm,"")%>'),
-                script: ('<%=cageData.script.replace(/(\r\n|\n|\r)/gm,"")%>')
-            }
-            if (cageData.html) {
-                htmleditor.setValue(cageData.html, 1)
-            }
-            if (cageData.style) {
-                csseditor.setValue(cageData.style, 1)
-            }
-            if (cageData.script) {
-                javascripteditor.setValue(cageData.script, 1)
-            }
+            init();
             //have a variable for each editor to see if content has changed, set to true using editor.on(change) if changed, iframe should pull in that section's text-align cache the previews
             var desktop_iframe = document.querySelector('#desktop');
             var horizontal_phone_iframe = document.querySelector('#horizontal-phone');
             var vertical_phone_iframe = document.querySelector('#vertical-phone');
 
             //insert sections for html, css, and js into previews
-            var starterCode = cageData.html + "\n<style>\n" + cageData.style + "\n</style>\n<script>\n" + cageData.script + "<\n\/script>"
+            var starterCode = "\n<style>\n\n</style>\n<script>\n<\n\/script>"
             desktop_iframe.srcdoc = starterCode;
             horizontal_phone_iframe.srcdoc = starterCode;
             vertical_phone_iframe.srcdoc = starterCode;
@@ -134,103 +151,126 @@
 
             //save the cage's code when the save button is clicked
             $('#save-btn').click(function() {
-                    $.ajax({
-                            type: "POST",
-                            url: "/cages/" + cageData.id + "/",
-                            data: {
-                                "html": htmleditor.getValue(),
-                                "style": csseditor.getValue(),
-                                "script": javascripteditor.getValue()
-                            }
-                        })
-                        .done(function(res) {
-                            console.log('response', res);
-                        });
+                $.ajax({
+                        type: "POST",
+                        url: "/cages/" + cageID + "/",
+                        data: {
+                            "html": htmleditor.getValue(),
+                            "style": csseditor.getValue(),
+                            "script": javascripteditor.getValue()
+                        }
+                    })
+                    .done(function(res) {
+                        console.log('response', res);
+                        //modify the button to let user know content was saved
+                        $('#save-btn').css('background-color', 'green');
+                        $('#save-btn').text('Saved!');
+                        //reset button to initial state
+                        setTimeout(function() {
+                            $('#save-btn').removeAttr('style');
+                            $('#save-btn').text('save');
+                        }, 3000);
+                    });
             });
 
-        //ensure editors resize to fit the div after opening
-        $('.collapsible-header').click(function() {
-            htmleditor.resize();
-            csseditor.resize();
-            javascripteditor.resize();
-        })
+            //change privacy setting
+            $('#privacy').click(function() {
+              //if checked, cage.public should be set to true
+              var privacy = $('#privacy').is(':checked');
+                $.ajax({
+                        type: "POST",
+                        url: "/cages/" + cageID + "/",
+                        data: {
+                            "public": privacy,
+                        }
+                    })
+                    .done(function(res) {
+                        console.log('response', res);
+                    });
+            });
 
-        //focus on the text header when user opens a code tab
-        $('#html-header').click(function() {
-            htmleditor.focus();
-        }); $('#css-header').click(function() {
-            csseditor.focus();
-        }); $('#javascript-header').click(function() {
-            javascripteditor.focus();
-        });
+            //ensure editors resize to fit the div after opening
+            $('.collapsible-header').click(function() {
+                htmleditor.resize();
+                csseditor.resize();
+                javascripteditor.resize();
+            })
 
-        //helper function to limit the frequency an event-based function fires
-        function debounce(fn, delay) {
-            var timer = null;
-            return function() {
-                var context = this,
-                    args = arguments;
-                clearTimeout(timer);
-                timer = setTimeout(function() {
-                    fn.apply(context, args);
-                }, delay);
-            };
-        }
+            //focus on the text header when user opens a code tab
+            $('#html-header').click(function() {
+                htmleditor.focus();
+            });
+            $('#css-header').click(function() {
+                csseditor.focus();
+            });
+            $('#javascript-header').click(function() {
+                javascripteditor.focus();
+            });
 
-        //helper function to create file download
-        function download(data, filename, type) {
-            var a = document.createElement("a"),
-                file = new Blob([data], {
-                    type: type
-                });
-            if (window.navigator.msSaveOrOpenBlob) // IE10+
-                window.navigator.msSaveOrOpenBlob(file, filename);
-            else { // Others
-                var url = URL.createObjectURL(file);
-                a.href = url;
-                a.download = filename;
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(function() {
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                }, 0);
+            //helper function to limit the frequency an event-based function fires
+            function debounce(fn, delay) {
+                var timer = null;
+                return function() {
+                    var context = this,
+                        args = arguments;
+                    clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        fn.apply(context, args);
+                    }, delay);
+                };
             }
-        }
 
-        $('.run-js').on("click", function(e) {
-            //prevent the click from causing the parent div to open/close
-            e.stopPropagation();
+            //helper function to create file download
+            function download(data, filename, type) {
+                var a = document.createElement("a"),
+                    file = new Blob([data], {
+                        type: type
+                    });
+                if (window.navigator.msSaveOrOpenBlob) // IE10+
+                    window.navigator.msSaveOrOpenBlob(file, filename);
+                else { // Others
+                    var url = URL.createObjectURL(file);
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    setTimeout(function() {
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    }, 0);
+                }
+            }
 
-            //create a new script tag with the user's JS
-            var js = document.createElement("script")
-            js.text = javascripteditor.getValue();
+            $('.run-js').on("click", function(e) {
+                //prevent the click from causing the parent div to open/close
+                e.stopPropagation();
 
-            //remove the old script
-            $("#desktop").contents().find("script").remove();
-            $("#vertical-phone").contents().find("script").remove();
-            $("#horizontal-phone").contents().find("script").remove();
+                //create a new script tag with the user's JS
+                var js = document.createElement("script")
+                js.text = javascripteditor.getValue();
 
-            //append the new script, which will cause it to execute
-            $("#desktop").contents().append(js);
-            $("#vertical-phone").contents().append(js);
-            $("#horizontal-phone").contents().append(js);
-        });
+                //remove the old script
+                $("#desktop").contents().find("script").remove();
+                $("#vertical-phone").contents().find("script").remove();
+                $("#horizontal-phone").contents().find("script").remove();
 
-        //when an editor is changed, update that section of the previews
-        htmleditor.on("change", debounce(function() {
-            $("#desktop").contents().find("body").html(htmleditor.getValue());
-            $("#vertical-phone").contents().find("body").html(htmleditor.getValue());
-            $("#horizontal-phone").contents().find("body").html(htmleditor.getValue());
+                //append the new script, which will cause it to execute
+                $("#desktop").contents().append(js);
+                $("#vertical-phone").contents().append(js);
+                $("#horizontal-phone").contents().append(js);
+            });
 
-        }, 250))
+            //when an editor is changed, update that section of the previews
+            htmleditor.on("change", debounce(function() {
+                $("#desktop").contents().find("body").html(htmleditor.getValue());
+                $("#vertical-phone").contents().find("body").html(htmleditor.getValue());
+                $("#horizontal-phone").contents().find("body").html(htmleditor.getValue());
+            }, 250))
 
-        csseditor.on("change", debounce(function() {
-            $("#desktop").contents().find("style").html(csseditor.getValue());
-            $("#vertical-phone").contents().find("style").html(csseditor.getValue());
-            $("#horizontal-phone").contents().find("style").html(csseditor.getValue());
-
-        }, 250))
-
+            csseditor.on("change", debounce(function() {
+                $("#desktop").contents().find("style").html(csseditor.getValue());
+                $("#vertical-phone").contents().find("style").html(csseditor.getValue());
+                $("#horizontal-phone").contents().find("style").html(csseditor.getValue());
+            }, 250))
         })
     </script>

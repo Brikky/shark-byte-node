@@ -1,29 +1,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <nav>
     <div class="nav-wrapper">
-      <div id="header" class="offset-s6 ">
-        <span><a href="/" class="btn header-btn">home</a></span>
-        <% if (!user) {%>
-          <form method="POST" action="/signin">
-            <span class="hide-on-med-and-down login-field">
+        <div id="header" class="offset-s6 ">
+            <span class='flex-center'><a href="/" class="btn header-btn flex-center-self">home</a></span>
+
+            <% if (!user) {%>
+                <form method="POST" action="/signin">
+                    <span class="hide-on-med-and-down login-field">
               <input class="header-input" type="text" name="username" placeholder="username">
             </span>
-            <span class="hide-on-med-and-down login-field">
+                    <span class="hide-on-med-and-down login-field">
               <input class="header-input" type="password" name="password" placeholder="password">
             </span>
-            <span class="hide-on-med-and-down">
+                    <span class="hide-on-med-and-down">
               <input type="submit" class="btn header-btn" value="Log In">
             </span>
-          </form>
-          <span class = "hide-on-large-only"></span>
-          <span><a href="/signup" class="btn header-btn">join</a></span>
-        <% } %>
+                </form>
+                <span class="hide-on-large-only"></span>
+                <span><a href="/signup" class="btn header-btn">join</a></span>
+                <% } %>
 
-        <% if (user){ %>
-          <span><a href="/cages/new" class="btn header-btn">new cage</a>
+                    <% if (user){ %>
+                        <span><a href="/cages/new" class="btn header-btn">new cage</a>
             <a href="/profile" class="btn header-btn">my profile</a></span>
-          <span><a href="/logout" class="btn header-btn">logout</a></span>
-        <% } %>
+                        <span class="flex-center"><a href="/logout" class="btn header-btn flex-center-self">logout</a></span>
+                        <% } %>
+        </div>
     </div>
-  </div>
 </nav>

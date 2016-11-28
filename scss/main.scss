@@ -3,6 +3,7 @@ $color2: rgba(68, 68, 68, 1);
 $color3: rgba(93, 217, 193, 1);
 $color4: rgba(75, 198, 185, 1);
 $color5: rgba(29, 52, 97, 1);
+
 $primary-color: $color4 !default;
 $secondary-color: $color5 !default;
 @import "materialize";
@@ -87,7 +88,14 @@ video {
     width: 100vw;
     margin-bottom: 0;
 }
-
+#messages{
+  text-align: center;
+  font-size: 1.5em;
+  color: $color5;
+  border: solid 3px $color4;
+  margin: 2em;
+  background-color: $color1;
+}
 .code-cage {
     height: 30vh;
 }
@@ -173,7 +181,7 @@ textarea{
 }
 
 .btn{
-  background-color: $color5 !important;
+  background-color: $color5;
 }
 
 #header {
@@ -185,6 +193,10 @@ textarea{
     background: none;
     color: black;
     padding: 5px;
+}
+
+a.powered-by-firepad {
+display: none;
 }
 
 .header-btn {
@@ -313,4 +325,71 @@ body {
 
 .justify{
   text-align: justify;
+}
+
+.flex-center{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.flex-center-self{
+  display: flex;
+  align-self: center;
+}
+
+/* The switch - the box around the slider */
+.show-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.show-switch input {display:none;}
+
+/* The slider */
+.show-slider {
+  height: 3em;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $color1;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.privacy-option{
+  margin: 5px;
+  color: $color1;
+}
+
+.show-slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .show-slider {
+  background-color: $color4;
+}
+
+input:focus + .show-slider {
+  box-shadow: 0 0 1px $color4;
+}
+
+input:checked + .show-slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }
