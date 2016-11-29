@@ -43,7 +43,7 @@ app.locals.user = false;
 //Create a server
 var port = process.env.PORT || 8000
 app.listen(port, function() {
-    console.log('running on port 8080')
+    console.log('running on port', port)
 });
 
 module.exports = app;

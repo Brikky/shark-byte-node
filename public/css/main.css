@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans);
 .materialize-red {
   background-color: #e51c23 !important; }
 
@@ -6560,7 +6560,8 @@ iframe {
   width: 250px !important;
   height: 30px !important; }
 
-input, textarea {
+input,
+textarea {
   text-align: center;
   color: #a7a7a7;
   border-radius: 5px !important;
@@ -6586,7 +6587,8 @@ a.powered-by-firepad {
 
 .header-btn {
   height: 30px;
-  line-height: 30px; }
+  line-height: 30px;
+  background-color: #1d3461 !important; }
 
 .low-margin {
   margin: 1vh; }
@@ -6716,8 +6718,8 @@ body {
   right: 0;
   bottom: 0;
   background-color: #a7a7a7;
-  -webkit-transition: .4s;
-  transition: .4s; }
+  -webkit-transition: 0.4s;
+  transition: 0.4s; }
 
 .privacy-option {
   margin: 5px;
@@ -6731,8 +6733,8 @@ body {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s; }
+  -webkit-transition: 0.4s;
+  transition: 0.4s; }
 
 input:checked + .show-slider {
   background-color: #4bc6b9; }
