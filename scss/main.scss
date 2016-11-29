@@ -174,16 +174,27 @@ iframe {
     height: 30px !important;
 }
 
-input,
-textarea {
+input.form-control,
+textarea.form-control {
     text-align: center;
     color: $color1;
     border-radius: 5px !important;
-    background-color: lighten($color3, 30%) !important;
+    background-color: lighten($color3, 30%);
+}
+::-webkit-input-placeholder {
+   color: $color1;
 }
 
-textarea {
-    background-color: lighten($color3, 30%) !important;
+:-moz-placeholder { /* Firefox 18- */
+   color: $color1;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $color1;  
+}
+
+:-ms-input-placeholder {
+   color: $color1;  
 }
 
 .btn {
@@ -420,4 +431,7 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 .danger{
   color:rgb(255, 81, 70);
+}
+input.btn{
+  background-color: $color5;
 }

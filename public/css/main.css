@@ -6563,15 +6563,26 @@ iframe {
   width: 250px !important;
   height: 30px !important; }
 
-input,
-textarea {
+input.form-control,
+textarea.form-control {
   text-align: center;
   color: #a7a7a7;
   border-radius: 5px !important;
-  background-color: #d9f6f0 !important; }
+  background-color: #d9f6f0; }
 
-textarea {
-  background-color: #d9f6f0 !important; }
+::-webkit-input-placeholder {
+  color: #a7a7a7; }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #a7a7a7; }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #a7a7a7; }
+
+:-ms-input-placeholder {
+  color: #a7a7a7; }
 
 .btn, .btn-large {
   background-color: #1d3461; }
@@ -6767,3 +6778,6 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 .danger {
   color: #ff5146; }
+
+input.btn, input.btn-large {
+  background-color: #1d3461; }
