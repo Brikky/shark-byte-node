@@ -58,7 +58,7 @@
                             <a href="/cages/<%= cage.id%>">
                                 <h6 class="center cage-link">View</h6>
                             </a>
-                            <a href="javascript:;" class="delete-link danger" data-id="<%=cage.id%>"><h6 class="center cage-link danger">Delete</h6></a>
+                            <div class="center cage-link"><a href="javascript:;" class="delete-link danger cage-link" data-id="<%=cage.id%>">Delete</a></div>
                             <iframe class="example-cage center-align" srcdoc="<%= cage.html + '<style>' + cage.style + '</style>' %>"></iframe>
                         </div>
                         <% }); %>
@@ -69,15 +69,18 @@
 </html>
 
 <script>
-  $('.delete-link').on('click', function(){
-    var $me = $(this);
-    $.ajax({
-            type: "DELETE",
-            url: "/cages/" + $me.data().id + "/",
-        })
-        .done(function(res) {
-    $me.parent().fadeOut(1500);
-  })
-
-  })
+    $('.delete-link').on('click', function() {
+        var $me = $(this);
+        if ($me.text() == 'Confirm') {
+            $.ajax({
+                    type: "DELETE",
+                    url: "/cages/" + $me.data().id + "/",
+                })
+                .done(function(res) {
+                    $me.parent().parent().fadeOut(1500);
+                })
+        } else {
+            $me.text('Confirm');
+        }
+    })
 </script>
