@@ -12,6 +12,10 @@ UsersController.index = function(req, res) {
 }
 
 UsersController.profile = function(req, res){
+
+  User.findOne({_id: req.app.locals.user.id}, function(err, user){
+    req.app.locals.user = user;
+  });
   res.render('../views/users/profile.ejs');
 }
 
