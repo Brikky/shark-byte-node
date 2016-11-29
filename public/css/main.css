@@ -6472,6 +6472,9 @@ html {
   border-radius: 5px;
   box-shadow: 0 0 10px 1px #919191; }
 
+.cage-link {
+  width: 25vw; }
+
 .top {
   z-index: 100;
   position: relative;

@@ -36,26 +36,37 @@ CagesController.create = function(req, res) {
 }
 
 CagesController.show = function(req, res) {
-    console.log('show action', req.params.id)
+  console.log(req.params.id)
     db.User.findOne({
-            _id: req.user.id
-        }, function(err, user) {
-            var cage = user.cages.id(req.params.id);
-            res.render('../views/cages/show.ejs', {
-                'cageData': cage
-            });
-        })
-}
+        'cages': {
+            $elemMatch: {
+                '_id': req.params.id
+            }
+        }
+    }, function(err, owner) {
+        db.Cage.findOne({
+            _id: req.params.id
+        }, function(err, cage) {
+            if (cage.public || req.user.id == owner.id) {
+                res.render('../views/cages/show.ejs', {
+                    'cageData': cage
+                });
+            } else {
+                req.flash('error', 'That cage is private!');
+                res.redirect('/');
+            }
+        });
+    });
+};
 
 CagesController.update = function(req, res) {
     if (req.body.public) {
         var privacyStatus = req.body.public === 'true';
-              db.Cage.update({
+        db.Cage.update({
             _id: req.params.id
         }, {
             public: privacyStatus
-        }, function(err, affected, res) {
-        });
+        }, function(err, affected, res) {});
     } else {
         db.Cage.update({
             _id: req.params.id
@@ -63,8 +74,7 @@ CagesController.update = function(req, res) {
             html: req.body.html,
             style: req.body.style,
             script: req.body.script
-        }, function(err, affected, res) {
-        });
+        }, function(err, affected, res) {});
     }
     res.send('cage updated successfully');
 }

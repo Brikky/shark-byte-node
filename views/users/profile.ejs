@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <link href="http://i.imgur.com/XVlMHth.png" rel="shortcut icon" type="image/x-icon"/>
+
+<head>
+    <link href="http://i.imgur.com/XVlMHth.png" rel="shortcut icon" type="image/x-icon" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -13,47 +14,55 @@
     </script>
     <title>SharkByte</title>
 
-  </head>
-  <% include ../partials/nav %>
-  <body>
-<div class="row">
-<div class="col s12 m4"><div class="card">
-  <div class="card-header">
-    <img src="/images/shark.jpg"/>
-  </div>
-  <div class="card-content">
-    <h3 class="center"><%= user.username %></h3>
-    <% if (user.headline){%>
-      <h4 class="center"><%= user.headline %></h4>
-    <% } %>
-    <% if (user.description){%>
-      <p class="justify"><%= user.description %></p>
-    <% } %>
-  </div>
-  <div class="card-footer">
-    <ul>
-      <% if (user.stackoverflow){%>
-        <li>
-          <a href="#"><i class="fa fa-stack-overflow"></i></a>
-        </li>
-      <% } %>
-      <% if (user.github){%>
-        <li>
-          <a href="#"><i class="fa fa-github"></i></a>
-        </li>
-      <% } %>
-    </ul>
-  </div>
-</div></div>
-<div class="col s6 m8">
-      <% if (user) {%>
-    <% user.cages.forEach(function(cage){%>
-      <div class="col m6">
-        <h6 class="center"><%= cage.name %></h6>
-          <iframe class="example-cage center-align" srcdoc="<%= cage.html + cage.style + cage.script %>"></iframe>
-      </div>
-      <% }); %>
-      <% } %>
-</div>
-  </body>
-  </html>
+</head>
+<% include ../partials/nav %>
+
+    <body>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-header">
+                        <img src="/images/shark.jpg" />
+                    </div>
+                    <div class="card-content">
+                        <h3 class="center"><%= user.username %></h3>
+                        <% if (user.headline){%>
+                            <h4 class="center"><%= user.headline %></h4>
+                            <% } %>
+                                <% if (user.description){%>
+                                    <p class="justify">
+                                        <%= user.description %>
+                                    </p>
+                                    <% } %>
+                    </div>
+                    <div class="card-footer">
+                        <ul>
+                            <% if (user.stackoverflow){%>
+                                <li>
+                                    <a href="#"><i class="fa fa-stack-overflow"></i></a>
+                                </li>
+                                <% } %>
+                                    <% if (user.github){%>
+                                        <li>
+                                            <a href="#"><i class="fa fa-github"></i></a>
+                                        </li>
+                                        <% } %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6 m8">
+                <% if (user) {%>
+                    <% user.cages.forEach(function(cage){%>
+                        <div class="col m6">
+                            <a href="/cages/<%= cage.id%>">
+                                <h6 class="center cage-link">View</h6>
+                            </a>
+                            <iframe class="example-cage center-align" srcdoc="<%= cage.html + '<style>' + cage.style + '</style>' %>"></iframe>
+                        </div>
+                        <% }); %>
+                            <% } %>
+            </div>
+    </body>
+
+</html>

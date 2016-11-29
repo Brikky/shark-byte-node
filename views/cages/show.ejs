@@ -72,6 +72,7 @@
     <script>
         var dbRef = '<%= cageData.dbRef %>'
         var cageID = '<%= cageData.id %>'
+        var publicCage = <%= cageData.public %>
 
         var htmleditor = ace.edit("html-editor");
         htmleditor.setTheme("ace/theme/monokai");
@@ -121,6 +122,12 @@
             desktop_iframe.srcdoc = starterCode;
             horizontal_phone_iframe.srcdoc = starterCode;
             vertical_phone_iframe.srcdoc = starterCode;
+
+            //if the cage is public, set the slider to public
+            if(publicCage){
+              $('#privacy').prop('checked', true);
+            }
+
 
             //close buttons should not be immediately visible
             $('.closer').hide();
