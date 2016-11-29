@@ -6577,6 +6577,9 @@ textarea {
   display: flex;
   justify-content: space-around; }
 
+#signup-btn {
+  background-color: #1d3461 !important; }
+
 .login-field {
   background: none;
   color: black;
