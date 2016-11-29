@@ -1,7 +1,7 @@
 
 # SharkByte
 ___
-It's time for a better way to dive into web design. Get your feet wet with SharkByte, an interactive, realtime collaborative tool for making static web pages, or building resources to include in larger projects.
+There's an ocean of web design resources available online. Get your feet wet with SharkByte - an interactive, realtime collaborative tool for making static web pages, or building resources to include in larger projects.
 
 ### URL: [sharkbyte.herokuapp.com](https://sharkbyte.herokuapp.com)
 #### Demo Login
