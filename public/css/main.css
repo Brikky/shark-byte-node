@@ -6564,7 +6564,8 @@ iframe {
   height: 30px !important; }
 
 input.form-control,
-textarea.form-control {
+textarea.form-control,
+input.header-input {
   text-align: center;
   color: #a7a7a7;
   border-radius: 5px !important;
