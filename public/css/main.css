@@ -6752,3 +6752,12 @@ input:checked + .show-slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px); }
+
+input[type="range"]:active::-moz-range-thumb {
+  background-color: #5dd9c1; }
+
+input[type="range"]:active::-webkit-slider-thumb {
+  background-color: #5dd9c1; }
+
+.slider .indicators .indicator-item.active {
+  background-color: #5dd9c1; }

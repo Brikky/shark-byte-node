@@ -64,8 +64,9 @@ html {
     border-radius: 5px;
     box-shadow: 0 0 10px 1px lighten($color2, 30%);
 }
-.cage-link{
-  width: 25vw;
+
+.cage-link {
+    width: 25vw;
 }
 
 .top {
@@ -194,8 +195,8 @@ textarea {
     justify-content: space-around;
 }
 
-#signup-btn{
-  background-color: $color5 !important;
+#signup-btn {
+    background-color: $color5 !important;
 }
 
 .login-field {
@@ -399,4 +400,16 @@ input:checked + .show-slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+input[type="range"]:active::-moz-range-thumb {
+    background-color: $color3;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+    background-color: $color3;
+}
+
+.slider .indicators .indicator-item.active{
+  background-color: $color3;
 }
