@@ -29,7 +29,7 @@ UsersController.createAccount = function(req, res) {
   // error message passwords do not match
   res.redirect('./views/users/signup.html');
   }
-  User.register(new User({  username: req.body.username, headline: req.body.headline, description: req.body.description}), req.body.password,
+  User.register(new User({  username: req.body.username, headline: req.body.headline, description: req.body.description, github: req.body.github, stackoverflow: req.body.stackoverflow}), req.body.password,
     function (err, newUser) {
       passport.authenticate('local')(req, res, function() {});
     }
