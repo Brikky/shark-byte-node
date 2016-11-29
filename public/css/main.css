@@ -6563,6 +6563,11 @@ iframe {
   width: 250px !important;
   height: 30px !important; }
 
+div.caption {
+  width: 60% !important;
+  margin: 0 auto;
+  left: 20% !important; }
+
 input.form-control,
 textarea.form-control,
 input.header-input {
