@@ -16,6 +16,7 @@
 
 </head>
 <% include ../partials/nav %>
+
     <body>
         <div class="row">
             <div class="col s12 m4">
@@ -53,10 +54,11 @@
             <div class="col s6 m8">
                 <% if (user) {%>
                     <% user.cages.forEach(function(cage){%>
-                        <div class="col m6">
+                        <div class="col m6 bottom-room">
                             <a href="/cages/<%= cage.id%>">
                                 <h6 class="center cage-link">View</h6>
                             </a>
+                            <a href="javascript:;" class="delete-link danger" data-id="<%=cage.id%>"><h6 class="center cage-link danger">Delete</h6></a>
                             <iframe class="example-cage center-align" srcdoc="<%= cage.html + '<style>' + cage.style + '</style>' %>"></iframe>
                         </div>
                         <% }); %>
@@ -65,3 +67,17 @@
     </body>
 
 </html>
+
+<script>
+  $('.delete-link').on('click', function(){
+    var $me = $(this);
+    $.ajax({
+            type: "DELETE",
+            url: "/cages/" + $me.data().id + "/",
+        })
+        .done(function(res) {
+    $me.parent().fadeOut(1500);
+  })
+
+  })
+</script>

@@ -13,6 +13,7 @@ router.get("/cages/new", auth.checkPermission, CageController.new);
 router.post("/cages/create", auth.checkPermission, CageController.create);
 router.get("/cages/:id", auth.checkPermission, CageController.show);
 router.post("/cages/:id", auth.checkPermission, CageController.update);
+router.delete("/cages/:id", auth.checkPermission, CageController.delete);
 router.get("/cages", auth.checkPermission, CageController.index);
 //profile
 router.get("/profile", auth.checkPermission, UserController.profile);

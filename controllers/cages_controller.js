@@ -36,7 +36,7 @@ CagesController.create = function(req, res) {
 }
 
 CagesController.show = function(req, res) {
-  console.log(req.params.id)
+    console.log(req.params.id)
     db.User.findOne({
         'cages': {
             $elemMatch: {
@@ -77,6 +77,26 @@ CagesController.update = function(req, res) {
         }, function(err, affected, res) {});
     }
     res.send('cage updated successfully');
+}
+
+CagesController.delete = function(req, res) {
+    console.log(req.params)
+    console.log(req.app.locals.user.id)
+    db.User.update({
+        _id: req.app.locals.user.id
+    }, {
+        $pull: {
+            cages: {
+                _id: req.params.id
+            }
+        }
+    }, function(err, affected, res){
+      console.log('err',err,'affected',affected,'res',res)
+    })
+    db.User.findOne({_id: req.app.locals.user.id}, function(err, user){
+      req.app.locals.user = user;
+    })
+    res.send('deleted');
 }
 
 module.exports = CagesController;

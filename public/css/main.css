@@ -6761,3 +6761,9 @@ input[type="range"]:active::-webkit-slider-thumb {
 
 .slider .indicators .indicator-item.active {
   background-color: #5dd9c1; }
+
+.bottom-room {
+  margin-bottom: 3em; }
+
+.danger {
+  color: #ff5146; }
