@@ -42,6 +42,7 @@ module.exports.login = function(req, res) {
 
 module.exports.checkPermission = function(req, res, next){
   if (req.user){
+    req.app.locals.user = req.user;
     next();
   }
   else{
