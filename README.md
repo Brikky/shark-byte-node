@@ -27,7 +27,7 @@ User's Profile Page
 * User input code is rendered in real time, with previews for desktop, and both mobile orientations
 * Code is persisted to the user's account when saved
 * Code can be exported to a web-ready file for static pages
-* Projects can be kept private or made public to be shared with other users - invite your friends!
+* Projects can be kept private or made public to collaborate with other users - invite your friends!
 
 
 ### Technologies Used
