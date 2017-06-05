@@ -11,13 +11,13 @@ module.exports.register = function(req, res) {
     token = user.generateJwt();
     res.status(200);
     res.json({
-      "token" : token
+      token: token
     });
   });
 };
 
 module.exports.login = function(req, res) {
-  passport.authenticate('local', function(err, user, info){
+  passport.authenticate('local', function(err, user, info) {
     var token;
     // If Passport throws/catches an error
     if (err) {
@@ -25,28 +25,26 @@ module.exports.login = function(req, res) {
       return;
     }
     // If a user is found
-    if(user){
+    if (user) {
       token = user.generateJwt();
       req.app.user = user;
       res.status(200);
       res.json({
-        "token" : token
+        token: token
       });
     } else {
       // If user is not found
       res.status(401).json('user not found, ' + info);
     }
   })(req, res);
-
 };
 
-module.exports.checkPermission = function(req, res, next){
-  if (req.user){
+module.exports.checkPermission = function(req, res, next) {
+  if (req.user) {
     req.app.locals.user = req.user;
     next();
-  }
-  else{
-    req.flash('error','You need to login first to access that page!');
+  } else {
+    req.flash('error', 'You need to login first to access that page!');
     res.redirect('/');
   }
 };
