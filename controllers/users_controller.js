@@ -12,7 +12,6 @@ UsersController.index = function(req, res) {
 }
 
 UsersController.profile = function(req, res){
-
   User.findOne({_id: req.app.locals.user.id}, function(err, user){
     req.app.locals.user = user;
   });
@@ -43,7 +42,6 @@ UsersController.signin = function(req, res) {
 
 UsersController.verify = function(req, res) {
   req.app.locals.user = req.user;
-
   res.redirect(path.resolve('/'));
 }
 
@@ -54,6 +52,5 @@ UsersController.logout = function(req, res){
     console.log("AFTER logout", JSON.stringify(req.user));
     res.redirect(path.resolve('/'));
   };
-
 
 module.exports = UsersController;
