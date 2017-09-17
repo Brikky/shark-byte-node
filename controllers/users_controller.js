@@ -46,10 +46,8 @@ UsersController.verify = function(req, res) {
 }
 
 UsersController.logout = function(req, res){
-    console.log("BEFORE logout", JSON.stringify(req.user));
     req.app.locals.user = false;
     req.logout();
-    console.log("AFTER logout", JSON.stringify(req.user));
     res.redirect(path.resolve('/'));
   };
 
