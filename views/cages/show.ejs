@@ -87,8 +87,7 @@
         javascripteditor.getSession().setMode("ace/mode/javascript"); //ACE CODE HIGHLIGHTING
 
         function init() {
-            console.log('ace', ace)
-                // Initialize Firebase
+            // Initialize Firebase
             var config = {
                 apiKey: "AIzaSyBrB_6DCVZ8NcpdQveMlLbbofmhgRhBed4",
                 authDomain: "sharkbyte-63a84.firebaseapp.com",
@@ -112,6 +111,7 @@
 
         $(document).ready(function() {
             init();
+            
             //have a variable for each editor to see if content has changed, set to true using editor.on(change) if changed, iframe should pull in that section's text-align cache the previews
             var desktop_iframe = document.querySelector('#desktop');
             var horizontal_phone_iframe = document.querySelector('#horizontal-phone');
