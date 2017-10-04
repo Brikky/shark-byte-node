@@ -74,17 +74,18 @@ var scriptFirepadRef;
 
     var htmleditor = ace.edit("html-editor");
     htmleditor.setTheme("ace/theme/monokai");
-    htmleditor.getSession().setMode("ace/mode/html"); //ACE CODE HIGHLIGHTING
+    htmleditor.getSession().setMode("ace/mode/html");             //ACE CODE HIGHLIGHTING
 
     var csseditor = ace.edit("css-editor");
     csseditor.setTheme("ace/theme/monokai");
-    csseditor.getSession().setMode("ace/mode/css"); //ACE CODE HIGHLIGHTING
+    csseditor.getSession().setMode("ace/mode/css");               //ACE CODE HIGHLIGHTING
 
     var javascripteditor = ace.edit("javascript-editor");
     javascripteditor.setTheme("ace/theme/monokai");
     javascripteditor.getSession().setMode("ace/mode/javascript"); //ACE CODE HIGHLIGHTING
 
     function init() {
+
 console.log('ace',ace)
         // Initialize Firebase
         var config = {
@@ -94,6 +95,7 @@ console.log('ace',ace)
             storageBucket: "sharkbyte-63a84.appspot.com",
             messagingSenderId: "92005039891"
         };
+
         firebase.initializeApp(config);
 
         // Get Firebase Database reference.
@@ -134,7 +136,8 @@ console.log('ace',ace)
     }
 
     $(document).ready(function() {
-  init();
+        init();
+        
         //have a variable for each editor to see if content has changed, set to true using editor.on(change) if changed, iframe should pull in that section's text-align cache the previews
         var desktop_iframe = document.querySelector('#desktop');
         var horizontal_phone_iframe = document.querySelector('#horizontal-phone');

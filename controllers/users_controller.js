@@ -6,7 +6,6 @@ var path = require('path');
 var server = require('../server.js');
 // var auth = require('./authentication.js');
 
-
 UsersController.index = function(req, res) {
   res.render('../views/users/home.ejs');
 }

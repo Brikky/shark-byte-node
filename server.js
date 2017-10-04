@@ -21,6 +21,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
 // passport config
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
@@ -39,9 +40,11 @@ app.use(bodyParser());
 //Require all resources in app
 app.use(require('./routes'));
 
-app.set('view engine', 'ejs');
 // use res.render to load up an ejs view file
+app.set('view engine', 'ejs');
+
 app.locals.user = false;
+
 //Create a server
 var port = process.env.PORT || 8000;
 app.listen(port, function() {

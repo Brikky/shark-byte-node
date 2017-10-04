@@ -7,6 +7,7 @@ var auth = require('./authentication.js');
 
 //home page
 router.get('/', UserController.index);
+
 //########**PROTECTED**########
 //cages
 router.get('/cages/new', auth.checkPermission, CageController.new);
@@ -18,6 +19,7 @@ router.get('/cages', auth.checkPermission, CageController.index);
 //profile
 router.get('/profile', auth.checkPermission, UserController.profile);
 //########**END PROTECTED**########
+
 //account routes
 router.get('/signup', UserController.new);
 router.post('/signup', UserController.createAccount);
