@@ -1,15 +1,18 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var CageSchema = new Schema({
+const CageSchema = new Schema({
   html: String,
   style: String,
   script: String,
   name: String,
   dbRef: String,
-  public: {type: Boolean, default: false}
+  public: {
+    type: Boolean,
+    default: false
+  }
 });
 
-var Cage = mongoose.model('Cage', CageSchema);
+const Cage = mongoose.model('Cage', CageSchema);
 
 module.exports = Cage;

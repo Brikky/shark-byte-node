@@ -6,7 +6,7 @@ $color5: rgba(29, 52, 97, 1);
 $primary-color: $color4 !default;
 $secondary-color: $color5 !default;
 @import "materialize";
-/*####################################*/
+
 body {
     background: lighten($color3, 30%) !important;
 }
